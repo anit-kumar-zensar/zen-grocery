@@ -1,1 +1,8 @@
-@import 'bootstrap/dist/css/bootstrap.min.css'
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+.filter-container{
+  text-align: right;
+  font-size: 40px;
+  cursor: pointer;
+  display: inline;
+}

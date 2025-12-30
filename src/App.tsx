@@ -1,4 +1,3 @@
-import FilterSideBar from "./components/common/FilterSideBar";
 import Header from "./components/layout/Header";
 import Home from "./page/Home";
 
@@ -7,7 +6,6 @@ const App = () => {
     <>
       <Header />
       <Home />
-      <FilterSideBar />
     </>
   );
 };
