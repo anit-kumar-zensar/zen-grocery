@@ -35,7 +35,7 @@ const ProductsCard = ({ products, setShow }: ProductCardProp) => {
                     dispatch(getItemCount());
                   }}
                 >
-                  Add <CartIcon />
+                  Add to cart <CartIcon />
                 </Button>
               </Card.Body>
             </Card>

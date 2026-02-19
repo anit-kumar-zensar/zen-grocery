@@ -15,10 +15,26 @@ const productSlice = createSlice({
       state.products = action.payload;
     },
     addToCart: (state, action) => {
-      state.cart = [...state.cart, action.payload];
+      const item = action.payload;
+      const existingItem = state.cart.find((p) => p.id === item.id);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.cart.push({ ...item, quantity: 1 });
+      }
     },
     removeCart: (state, action) => {
-      state.cart = state.cart.filter((i) => i.id !== action.payload);
+      const id = action.payload;
+
+      const existingItem = state.cart.find((p) => p.id === id);
+
+      if (existingItem) {
+        if (existingItem.quantity > 1) {
+          existingItem.quantity -= 1;
+        } else {
+          state.cart = state.cart.filter((p) => p.id !== id);
+        }
+      }
     },
     getItemCount: (state, action) => {
       state.itemCounts = state.cart.length;

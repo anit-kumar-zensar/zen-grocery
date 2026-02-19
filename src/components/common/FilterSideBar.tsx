@@ -1,4 +1,5 @@
 import Offcanvas from "react-bootstrap/Offcanvas";
+import Form from "react-bootstrap/Form";
 
 interface FilterSideBarProp {
   handleShow: () => void;
@@ -10,12 +11,28 @@ const FilterSideBar = ({ handleClose, show }: FilterSideBarProp) => {
   return (
     <Offcanvas show={show} onHide={handleClose}>
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Responsive offcanvas</Offcanvas.Title>
+        <Offcanvas.Title>Filter Groceries</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <p className="mb-0">
-          This is content within an <code>.offcanvas-lg</code>.
-        </p>
+        <Form>
+          {[
+            "home-decoration",
+            "groceries",
+            "skincare",
+            "fragrances",
+            "laptops",
+            "smartphones",
+          ].map((item) => {
+            return (
+              <Form.Check
+                key={item}
+                type="switch"
+                id="custom-switch"
+                label="Check this switch"
+              />
+            );
+          })}
+        </Form>
       </Offcanvas.Body>
     </Offcanvas>
   );
