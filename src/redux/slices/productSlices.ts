@@ -1,7 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { products } from "../../mocks/products";
 
-const initialState = {
+type Product = {
+    id:string;
+    name:string;
+    price:number;
+    category:string;
+    imageUrl:string
+}
+type CartItem = Product & {
+  quantity: number;
+};
+interface ProductState {
+  products: Product[];
+  cart: CartItem[];
+  itemCounts: number;
+  isCartPageOpen: boolean;
+}
+const initialState:ProductState  = {
   products: [...products],
   cart: [],
   itemCounts: 0,
@@ -36,10 +52,10 @@ const productSlice = createSlice({
         }
       }
     },
-    getItemCount: (state, action) => {
+    getItemCount: (state) => {
       state.itemCounts = state.cart.length;
     },
-    isCartPageOpen: (state, action) => {
+    isCartPageOpen: (state) => {
       state.isCartPageOpen = !state.isCartPageOpen;
     },
   },

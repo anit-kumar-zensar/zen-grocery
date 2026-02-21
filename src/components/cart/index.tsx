@@ -1,6 +1,5 @@
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { Product } from "../../model/product";
 import { useState } from "react";
 import {
   addToCart,
@@ -8,12 +7,12 @@ import {
   removeCart,
 } from "../../redux/slices/productSlices";
 import ToastNotification from "../toast";
+import type { RootState } from "../../redux/store.ts";
 
 const Cart = () => {
-  const [itemCount, setItemCount] = useState({});
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-  const { cart } = useSelector((s) => s);
+  const { cart } = useSelector((s: RootState) => s);
 
   return (
     <>
@@ -35,52 +34,48 @@ const Cart = () => {
               </tr>
             </thead>
             <tbody>
-              {Array.from(new Set(cart))?.map(
-                ({ name, id, price, imageUrl, quantity }) => {
-                  return (
-                    <tr key={id}>
-                      <td>{id}</td>
-                      <td>
-                        <img
-                          src={imageUrl}
-                          alt={name}
-                          width="100"
-                          height="auto"
-                        />{" "}
-                        {name}
-                      </td>
-                      <td>{price}</td>
-                      <td>
-                        {quantity}{" "}
-                        <span>
-                          <button
-                            onClick={() => {
-                              const product = cart.find(
-                                (item) => item.id === id,
-                              );
-                              dispatch(addToCart(product));
-                              setShow(true);
-                              dispatch(getItemCount());
-                            }}
-                          >
-                            +
-                          </button>{" "}
-                          <button
-                            onClick={() => {
-                              dispatch(removeCart(id));
-                              setShow(true);
-                              dispatch(getItemCount());
-                            }}
-                          >
-                            -
-                          </button>
-                        </span>
-                      </td>
-                      <td>{quantity * price}</td>
-                    </tr>
-                  );
-                },
-              )}
+              {cart?.map(({ name, id, price, imageUrl, quantity }) => {
+                return (
+                  <tr key={id}>
+                    <td>{id}</td>
+                    <td>
+                      <img
+                        src={imageUrl}
+                        alt={name}
+                        width="100"
+                        height="auto"
+                      />{" "}
+                      {name}
+                    </td>
+                    <td>{price}</td>
+                    <td>
+                      {quantity}{" "}
+                      <span>
+                        <button
+                          onClick={() => {
+                            const product = cart.find((item) => item.id === id);
+                            dispatch(addToCart(product));
+                            setShow(true);
+                            dispatch(getItemCount());
+                          }}
+                        >
+                          +
+                        </button>{" "}
+                        <button
+                          onClick={() => {
+                            dispatch(removeCart(id));
+                            setShow(true);
+                            dispatch(getItemCount());
+                          }}
+                        >
+                          -
+                        </button>
+                      </span>
+                    </td>
+                    <td>{quantity * price}</td>
+                  </tr>
+                );
+              })}
               <tr>
                 <th
                   colSpan={5}

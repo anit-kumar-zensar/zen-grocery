@@ -4,7 +4,7 @@ class Product{
     name:string = '';
     price:number = 0;
     category:string ='';
-    imageUrl:string=''
+    imageUrl?:string=''
     getNewId(){
        return this.id === undefined 
     }

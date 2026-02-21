@@ -5,9 +5,10 @@ import CartIcon from "../common/CartIcon";
 import { Badge } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { isCartPageOpen } from "../../redux/slices/productSlices";
+import type { RootState } from "../../redux/store";
 
 const Header = () => {
-  const { itemCounts } = useSelector((s) => s);
+  const { itemCounts } = useSelector((s: RootState) => s);
   const dispatch = useDispatch();
 
   return (

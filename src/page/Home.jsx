@@ -15,7 +15,12 @@ const Home = () => {
 
   return (
     <div className="container" style={{ marginTop: "20px" }}>
-      <ToastNotification show={show} setShow={setShow} />
+      <ToastNotification
+        show={show}
+        setShow={setShow}
+        title="Product Added Successfully"
+        msg=" Woohoo, you're reading this text in a Toast!"
+      />
       <div className="filter-container">
         <FilterIcon
           show={openFilterBar}

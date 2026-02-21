@@ -6,9 +6,16 @@ import Toast from "react-bootstrap/Toast";
 interface ToastNotificationProps {
   setShow: (arg: boolean) => void;
   show: boolean;
+  title?: string;
+  msg?: string;
 }
 
-const ToastNotification = ({ setShow, show }: ToastNotificationProps) => {
+const ToastNotification = ({
+  setShow,
+  show,
+  title,
+  msg,
+}: ToastNotificationProps) => {
   return (
     <div aria-live="polite" aria-atomic="true" className="position-relative">
       <ToastContainer className="p-3" position="top-end" style={{ zIndex: 1 }}>
@@ -27,11 +34,9 @@ const ToastNotification = ({ setShow, show }: ToastNotificationProps) => {
                   className="rounded me-2"
                   alt=""
                 />
-                <strong className="me-auto">Product Added Successfully</strong>
+                <strong className="me-auto">{title}</strong>
               </Toast.Header>
-              <Toast.Body>
-                Woohoo, you're reading this text in a Toast!
-              </Toast.Body>
+              <Toast.Body>{msg}</Toast.Body>
             </Toast>
           </Col>
         </Row>

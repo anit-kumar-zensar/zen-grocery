@@ -28,7 +28,7 @@ const FilterSideBar = ({ handleClose, show }: FilterSideBarProp) => {
                 key={item}
                 type="switch"
                 id="custom-switch"
-                label="Check this switch"
+                label={item.toUpperCase()}
               />
             );
           })}
