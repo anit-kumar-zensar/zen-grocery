@@ -1,22 +1,41 @@
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import {
-  addToCart,
-  getItemCount,
-  removeCart,
-} from "../../redux/slices/productSlices";
+import { useState, useEffect } from "react";
 import ToastNotification from "../toast";
+import {
+  addToCartAPI,
+  removeFromCartAPI,
+  fetchCart,
+  getItemCount,
+} from "../../redux/slices/cartSlice.ts";
 import type { RootState } from "../../redux/store.ts";
 
+// interface CartProps {
+//   _id?: string;
+//   name: string;
+//   price: number;
+//   imageUrl: string;
+//   quantity: number;
+//   totalPrice: number;
+//   productId: string;
+// }
+// interface CartItem {
+//   cartItem: CartProps[];
+// }
 const Cart = () => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-  const { cart } = useSelector((s: RootState) => s);
+
+  const { carts } = useSelector((s: RootState) => s.cart);
+
+  console.log("Cart items from props:", carts);
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
 
   return (
     <>
-      {cart?.length === 0 ? (
+      {carts?.length === 0 ? (
         <div className="container" style={{ marginTop: "20px" }}>
           <h2>Your cart is empty</h2>
         </div>
@@ -34,10 +53,10 @@ const Cart = () => {
               </tr>
             </thead>
             <tbody>
-              {cart?.map(({ name, id, price, imageUrl, quantity }) => {
+              {carts?.map(({ name, price, imageUrl, quantity, productId }) => {
                 return (
-                  <tr key={id}>
-                    <td>{id}</td>
+                  <tr key={productId}>
+                    <td>{productId}</td>
                     <td>
                       <img
                         src={imageUrl}
@@ -53,8 +72,7 @@ const Cart = () => {
                       <span>
                         <button
                           onClick={() => {
-                            const product = cart.find((item) => item.id === id);
-                            dispatch(addToCart(product));
+                            dispatch(addToCartAPI(productId));
                             setShow(true);
                             dispatch(getItemCount());
                           }}
@@ -63,7 +81,7 @@ const Cart = () => {
                         </button>{" "}
                         <button
                           onClick={() => {
-                            dispatch(removeCart(id));
+                            dispatch(removeFromCartAPI(productId));
                             setShow(true);
                             dispatch(getItemCount());
                           }}
@@ -82,10 +100,7 @@ const Cart = () => {
                   style={{ textAlign: "right", marginRight: "20px" }}
                 >
                   Total Amount to pay:{" "}
-                  {cart.reduce(
-                    (acc, item) => acc + item.quantity * item.price,
-                    0,
-                  )}
+                  {carts?.reduce((acc, item) => acc + item?.totalPrice, 0)}
                 </th>
               </tr>
             </tbody>

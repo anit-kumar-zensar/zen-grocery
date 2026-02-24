@@ -1,3 +1,99 @@
-.card-shadow{
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+.card-shadow {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+
+.zengrocery-img-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 220px;
+  /* padding: 15px; */
+}
+
+.zengrocery-title {
+  font-size: 15px;
+  font-weight: 500;
+  /* height: 45px; */
+  overflow: hidden;
+}
+
+.zengrocery-category {
+  font-size: 13px;
+  color: #565959;
+  margin-bottom: 5px;
+}
+
+.zengrocery-rating {
+  font-size: 14px;
+  color: #f0c14b;
+  margin-bottom: 5px;
+}
+
+.rating-count {
+  color: #007185;
+  font-size: 13px;
+}
+
+.zengrocery-price {
+  color: #b12704;
+  font-weight: 600;
+  margin: 8px 0;
+}
+
+.zengrocery-price .currency {
+  font-size: 13px;
+  vertical-align: top;
+}
+
+.zengrocery-price .main-price {
+  font-size: 22px;
+}
+
+.zengrocery-price .cents {
+  font-size: 13px;
+  vertical-align: top;
+}
+
+.zengrocery-stock {
+  color: #007600;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.zengrocery-btn {
+  width: 100%;
+  background-color: #ffd814 !important;
+  border: 1px solid #fcd200 !important;
+  color: black !important;
+  border-radius: 20px !important;
+  font-weight: 500;
+}
+
+.zengrocery-btn:hover {
+  background-color: #f7ca00 !important;
+}
+
+.zengrocery-card {
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  overflow: hidden; /* Important for rounded image corners */
+  transition: 0.2s ease-in-out;
+  height: 100%;
+}
+
+.zengrocery-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+}
+
+/* FULL COVER IMAGE */
+.zengrocery-img {
+  width: 100%;
+  height: 220px; /* You can adjust */
+  object-fit: cover; /* Makes it full cover */
+}
+
+.zengrocery-body {
+  text-align: left;
+  padding: 15px;
 }
