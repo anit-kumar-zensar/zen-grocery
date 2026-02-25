@@ -1,4 +1,3 @@
-import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import ToastNotification from "../toast";
@@ -9,105 +8,86 @@ import {
   getItemCount,
 } from "../../redux/slices/cartSlice.ts";
 import type { RootState } from "../../redux/store.ts";
+import "./cart.css";
 
-// interface CartProps {
-//   _id?: string;
-//   name: string;
-//   price: number;
-//   imageUrl: string;
-//   quantity: number;
-//   totalPrice: number;
-//   productId: string;
-// }
-// interface CartItem {
-//   cartItem: CartProps[];
-// }
 const Cart = () => {
   const [show, setShow] = useState(false);
+  const [title, setTitle] = useState("");
+
   const dispatch = useDispatch();
 
   const { carts } = useSelector((s: RootState) => s.cart);
 
-  console.log("Cart items from props:", carts);
   useEffect(() => {
     dispatch(fetchCart());
   }, [dispatch]);
 
+  const totalAmount = carts?.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0,
+  );
+
   return (
-    <>
+    <div className="cart-container">
+      <ToastNotification show={show} setShow={setShow} title={title} />
       {carts?.length === 0 ? (
-        <div className="container" style={{ marginTop: "20px" }}>
-          <h2>Your cart is empty</h2>
+        <div className="empty-cart">
+          <h2>No items in your cart!</h2>
         </div>
       ) : (
-        <div className="container" style={{ marginTop: "20px" }}>
-          <ToastNotification show={show} setShow={setShow} />
-          <Table striped="columns">
-            <thead>
-              <tr>
-                <th>Product Code </th>
-                <th>Product Name</th>
-                <th>Price Per Unit</th>
-                <th>Quantity</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {carts?.map(({ name, price, imageUrl, quantity, productId }) => {
-                return (
-                  <tr key={productId}>
-                    <td>{productId}</td>
-                    <td>
-                      <img
-                        src={imageUrl}
-                        alt={name}
-                        width="100"
-                        height="auto"
-                      />{" "}
-                      {name}
-                    </td>
-                    <td>{price}</td>
-                    <td>
-                      {quantity}{" "}
-                      <span>
-                        <button
-                          onClick={() => {
-                            dispatch(addToCartAPI(productId));
-                            setShow(true);
-                            dispatch(getItemCount());
-                          }}
-                        >
-                          +
-                        </button>{" "}
-                        <button
-                          onClick={() => {
-                            dispatch(removeFromCartAPI(productId));
-                            setShow(true);
-                            dispatch(getItemCount());
-                          }}
-                        >
-                          -
-                        </button>
-                      </span>
-                    </td>
-                    <td>{quantity * price}</td>
-                  </tr>
-                );
-              })}
-              <tr>
-                <th
-                  colSpan={5}
-                  style={{ textAlign: "right", marginRight: "20px" }}
-                >
-                  Total Amount to pay:{" "}
-                  {carts?.reduce((acc, item) => acc + item?.totalPrice, 0)}
-                </th>
-              </tr>
-            </tbody>
-          </Table>
-        </div>
+        <>
+          {carts.map(({ productId, name, price, imageUrl, quantity }) => (
+            <div className="cart-item" key={productId}>
+              <img src={imageUrl} alt={name} className="cart-item-img" />
+
+              <div className="cart-item-details">
+                <h5 className="cart-item-title">{name}</h5>
+                <div className="cart-item-price">$ {price.toFixed(2)}</div>
+                <div className="cart-item-quantity">
+                  <button
+                    onClick={() => {
+                      dispatch(removeFromCartAPI(productId));
+                      setShow(true);
+                      dispatch(getItemCount());
+                      setTitle("Item removed from cart");
+                    }}
+                  >
+                    -
+                  </button>
+                  <span>{quantity}</span>
+                  <button
+                    onClick={() => {
+                      dispatch(addToCartAPI(productId));
+                      dispatch(getItemCount());
+                      if (quantity >= 9) {
+                        setTitle("Maximum quantity reached for this item");
+                        setShow(true);
+                      } else {
+                        setTitle("Item added to cart");
+                        setShow(true);
+                      }
+                    }}
+                    disabled={quantity >= 10} // Assuming max quantity is 10
+                  >
+                    +
+                  </button>
+                </div>
+                <div className="cart-item-total">
+                  Total: $ {(price * quantity).toFixed(2)}
+                </div>
+              </div>
+            </div>
+          ))}
+
+          <div className="cart-summary">
+            <h4>
+              Subtotal ({carts.length} items): $ {totalAmount?.toFixed(2)}
+            </h4>
+            <button className="checkout-btn">Proceed to Checkout</button>
+          </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 

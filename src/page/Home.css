@@ -1,0 +1,72 @@
+.products-page {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0px;
+  align-items: flex-start;
+}
+
+/* Sidebar width fixed */
+.products-page .filter-sidebar {
+  flex: 1 0 220px; /* fixed width */
+}
+
+/* Product grid grows to fill remaining space */
+.products-page .products-grid {
+  flex: 1;
+}
+
+/* Responsive: mobile */
+@media (max-width: 992px) {
+  .products-page {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .products-page .filter-sidebar {
+    display: none; /* use offcanvas instead */
+  }
+}
+
+.products-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px; /* keeps spacing consistent with product grid */
+}
+
+.status-box {
+  background: #fff;
+  padding: 20px 30px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #0f1111;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Loading spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ddd;
+  border-top: 4px solid #f0c14b; /* Amazon-style yellow */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error box style */
+.status-box.error {
+  border-color: #b12704;
+  color: #b12704;
+}

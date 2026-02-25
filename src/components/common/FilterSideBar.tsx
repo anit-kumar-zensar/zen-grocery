@@ -1,15 +1,12 @@
-import Offcanvas from "react-bootstrap/Offcanvas";
-import Form from "react-bootstrap/Form";
-import axios from "axios";
-import { getProducts } from "../../redux/slices/productSlices";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import axios from "axios";
+import { getProducts } from "../../redux/slices/productSlices";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import Button from "react-bootstrap/Button";
+import "./FilterSidebar.css";
+import { BASE_URL } from "../../constants/api";
 
-interface FilterSideBarProp {
-  handleShow: () => void;
-  handleClose: () => void;
-  show: boolean;
-}
 const categories = [
   "home-decoration",
   "groceries",
@@ -17,13 +14,17 @@ const categories = [
   "fragrances",
   "laptops",
   "smartphones",
+  "Fruits",
+  "Vegetables",
+  "Dairy",
+  "Snacks",
 ];
 
-const FilterSideBar = ({ handleClose, show }: FilterSideBarProp) => {
+const FilterSideBar = () => {
   const dispatch = useDispatch();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
 
-  // Handle toggle switch
   const handleToggle = (category: string) => {
     setSelectedCategories((prev) =>
       prev.includes(category)
@@ -35,11 +36,13 @@ const FilterSideBar = ({ handleClose, show }: FilterSideBarProp) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        let url = "http://localhost:4000/api/products"; // API Gateway
-        if (selectedCategories.length === 1) {
-          // Only send query if exactly one category selected
-          url += `?category=${selectedCategories[0]}`;
+        let url = `${BASE_URL}/products`;
+
+        if (selectedCategories.length > 0) {
+          const query = selectedCategories.join(",");
+          url += `?category=${encodeURIComponent(query)}`;
         }
+
         const response = await axios.get(url);
         dispatch(getProducts(response.data.products));
       } catch (error) {
@@ -50,25 +53,54 @@ const FilterSideBar = ({ handleClose, show }: FilterSideBarProp) => {
   }, [dispatch, selectedCategories]);
 
   return (
-    <Offcanvas show={show} onHide={handleClose}>
-      <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Filter Groceries</Offcanvas.Title>
-      </Offcanvas.Header>
-      <Offcanvas.Body>
-        <Form>
-          {categories.map((item) => (
-            <Form.Check
-              key={item}
-              type="switch"
-              id={`switch-${item}`}
-              label={item.toUpperCase()}
-              checked={selectedCategories.includes(item)}
-              onChange={() => handleToggle(item)}
-            />
+    <>
+      {/* Mobile toggle button */}
+      <div className="filter-mobile-btn">
+        <Button onClick={() => setShowOffcanvas(true)}>Filter</Button>
+      </div>
+
+      {/* Desktop Sidebar */}
+      <div className="filter-sidebar desktop-sidebar">
+        <h5 className="filter-title">Filter By Category</h5>
+        <div className="filter-options">
+          {categories.map((cat) => (
+            <label key={cat} className="filter-label">
+              <input
+                type="checkbox"
+                checked={selectedCategories.includes(cat)}
+                onChange={() => handleToggle(cat)}
+              />
+              <span className="filter-text">{cat.toUpperCase()}</span>
+            </label>
           ))}
-        </Form>
-      </Offcanvas.Body>
-    </Offcanvas>
+        </div>
+      </div>
+
+      {/* Mobile Offcanvas */}
+      <Offcanvas
+        show={showOffcanvas}
+        onHide={() => setShowOffcanvas(false)}
+        placement="start"
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Filter By Category</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <div className="filter-options">
+            {categories.map((cat) => (
+              <label key={cat} className="filter-label">
+                <input
+                  type="checkbox"
+                  checked={selectedCategories.includes(cat)}
+                  onChange={() => handleToggle(cat)}
+                />
+                <span className="filter-text">{cat.toUpperCase()}</span>
+              </label>
+            ))}
+          </div>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
   );
 };
 

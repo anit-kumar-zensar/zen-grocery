@@ -1,0 +1,76 @@
+/* Sidebar container */
+.filter-sidebar {
+  width: 220px;
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+  max-height: calc(
+    100vh - 80px
+  ); /* stay below header (adjust 80px if your header is taller) */
+  overflow-y: auto;
+}
+
+/* Sticky for desktop */
+.desktop-sidebar {
+  position: sticky;
+  top: 80px; /* height of your header */
+}
+
+/* Sidebar title */
+.filter-title {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #0f1111;
+}
+
+/* Flex wrap for side-by-side checkboxes */
+.filter-options {
+  display: flex;
+  flex-wrap: wrap; /* side by side if space allows */
+  gap: 10px;
+}
+
+/* Each checkbox label */
+.filter-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #0f1111;
+  min-width: 100px; /* ensures alignment */
+}
+
+.filter-label input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.filter-text {
+  user-select: none;
+}
+
+/* Mobile toggle button */
+.filter-mobile-btn {
+  display: none;
+  margin-bottom: 10px;
+}
+
+/* Responsive: hide desktop sidebar on small screens */
+@media (max-width: 992px) {
+  .desktop-sidebar {
+    display: none;
+  }
+  .filter-mobile-btn {
+    display: block;
+  }
+
+  .filter-options {
+    flex-direction: column;
+    gap: 10px; /* stack checkboxes in Offcanvas */
+  }
+}

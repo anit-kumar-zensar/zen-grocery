@@ -1,0 +1,49 @@
+.custom-toast {
+  position: fixed;
+  top: 80px; /* below header */
+  right: 20px;
+  z-index: 1050;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation:
+    slideIn 0.3s ease-out,
+    fadeOut 0.3s ease-in 1.2s forwards;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-family: Arial, sans-serif;
+}
+
+.toast-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #0f1111;
+}
+
+.toast-msg {
+  font-size: 13px;
+  color: #333;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}

@@ -1,48 +1,32 @@
-import { ToastContainer } from "react-bootstrap";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Toast from "react-bootstrap/Toast";
+import { useEffect } from "react";
+import "./Toast.css";
 
 interface ToastNotificationProps {
   setShow: (arg: boolean) => void;
   show: boolean;
   title?: string;
-  msg?: string;
 }
 
 const ToastNotification = ({
   setShow,
   show,
-  title,
-  msg,
+  title = "Success",
 }: ToastNotificationProps) => {
-  return (
-    <div aria-live="polite" aria-atomic="true" className="position-relative">
-      <ToastContainer className="p-3" position="top-end" style={{ zIndex: 1 }}>
-        <Row>
-          <Col xs={12}>
-            <Toast
-              onClose={() => setShow(false)}
-              show={show}
-              delay={1000}
-              autohide
-              bg={"Success".toLowerCase()}
-            >
-              <Toast.Header>
-                <img
-                  src="holder.js/20x20?text=%20"
-                  className="rounded me-2"
-                  alt=""
-                />
-                <strong className="me-auto">{title}</strong>
-              </Toast.Header>
-              <Toast.Body>{msg}</Toast.Body>
-            </Toast>
-          </Col>
-        </Row>
-      </ToastContainer>
+  // auto-hide logic
+  useEffect(() => {
+    if (show) {
+      const timer = setTimeout(() => setShow(false), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [show, setShow]);
+
+  return show ? (
+    <div className="custom-toast">
+      <div className="toast-content">
+        <strong className="toast-title">{title}</strong>
+      </div>
     </div>
-  );
+  ) : null;
 };
 
 export default ToastNotification;

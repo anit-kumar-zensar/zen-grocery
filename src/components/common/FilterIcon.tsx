@@ -1,4 +1,4 @@
-import FilterSideBar from "./FilterSideBar";
+import FilterSideBar from "./FilterSideBar2";
 
 interface FilterIconProps {
   handleShow: () => void;
