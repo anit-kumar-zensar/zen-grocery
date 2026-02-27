@@ -6,8 +6,9 @@ import CartIcon from "./CartIcon";
 import { useDispatch } from "react-redux";
 import { addToCartAPI, getItemCount } from "../../redux/slices/cartSlice";
 import { Product } from "../../model/product";
-import "./ProductsCard.css";
 import { useState } from "react";
+import type { AppDispatch } from "../../redux/store";
+import "./ProductsCard.css";
 
 interface ProductCardProp {
   products: Product[];
@@ -17,7 +18,8 @@ interface ProductCardProp {
 
 const ProductsCard = ({ products, setShow }: ProductCardProp) => {
   const [addedProducts, setAddedProducts] = useState<string[]>([]);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
     <Row xs={1} md={3} className="g-4">
       {products?.map((product) => {
@@ -66,7 +68,7 @@ const ProductsCard = ({ products, setShow }: ProductCardProp) => {
                     }, 2000);
                   }}
                 >
-                  {addedProducts.includes(_id)
+                  {addedProducts?.includes(_id)
                     ? "Added to Cart"
                     : "Add to Cart"}{" "}
                   <CartIcon />

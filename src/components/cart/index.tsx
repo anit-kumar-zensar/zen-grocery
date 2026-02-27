@@ -8,13 +8,14 @@ import {
   getItemCount,
 } from "../../redux/slices/cartSlice.ts";
 import type { RootState } from "../../redux/store.ts";
+import type { AppDispatch } from "../../redux/store";
 import "./cart.css";
 
 const Cart = () => {
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const { carts } = useSelector((s: RootState) => s.cart);
 

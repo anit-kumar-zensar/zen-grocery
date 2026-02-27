@@ -5,9 +5,7 @@ class Product{
     price:number = 0;
     category:string ='';
     imageUrl?:string=''
-    getNewId(){
-       return this._id === undefined 
-    }
+
     constructor(init:any){
      if(!init) return;
      if(init.id){

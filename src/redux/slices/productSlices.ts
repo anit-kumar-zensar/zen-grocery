@@ -30,19 +30,25 @@ const initialState:ProductState  = {
   error: null,
 };
 
-export const fetchProducts = createAsyncThunk(
+export const fetchProducts = createAsyncThunk<
+  Product[],
+  string[] | undefined
+>(
   "products/fetchProducts",
-  async (category?: string, thunkAPI) => {
+  async (categories, thunkAPI) => {
     try {
       let url = `${API_ENDPOINTS.PRODUCTS}`;
-      if (category) {
-        url += `?category=${category}`;
+
+      if (categories && categories.length > 0) {
+        url += `?category=${categories.join(",")}`;
       }
+
       const response = await axios.get(url);
-      // API returns { count, products }
       return response.data.products as Product[];
     } catch (err: any) {
-      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+      return thunkAPI.rejectWithValue(
+        err.response?.data || err.message
+      );
     }
   }
 );

@@ -1,0 +1,157 @@
+.custom-multiselect {
+  position: relative;
+  width: 100%;
+  font-size: 14px;
+}
+
+/* HEADER */
+.select-header {
+  min-height: 42px;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+
+.select-header:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* TAGS */
+.selected-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #007bff;
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: fadeIn 0.2s ease;
+}
+
+.remove-tag {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* .placeholder {
+  color: #888;
+} */
+
+/* ARROW */
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.arrow.open {
+  transform: rotate(180deg);
+}
+
+/* DROPDOWN */
+.select-dropdown {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.select-dropdown.open {
+  max-height: 320px;
+  padding: 8px 0;
+  overflow-y: auto;
+}
+
+/* CONTROLS */
+.dropdown-controls {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.dropdown-controls button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* OPTION */
+.dropdown-option {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dropdown-option:hover,
+.dropdown-option:focus {
+  background: #f5f5f5;
+  outline: none;
+}
+
+/* CHECKBOX */
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #aaa;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: transparent;
+  transition: all 0.2s ease;
+}
+
+.checkbox.checked {
+  background: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.placeholder {
+  display: inline-block;
+  min-height: 1em;
+  vertical-align: middle;
+  /* cursor: wait; */
+  /* background-color: currentcolor; */
+  opacity: 0.5;
+}

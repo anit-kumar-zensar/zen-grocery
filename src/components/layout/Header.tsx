@@ -5,11 +5,11 @@ import CartIcon from "../common/CartIcon";
 import { Badge } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { isCartPageOpen } from "../../redux/slices/cartSlice";
-import type { RootState } from "../../redux/store";
+import type { RootState, AppDispatch } from "../../redux/store";
 
 const Header = () => {
   const { itemCounts } = useSelector((s: RootState) => s.cart);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <Navbar
@@ -29,13 +29,11 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link onClick={() => dispatch(isCartPageOpen(false))}>
-              Home
-            </Nav.Link>
+            <Nav.Link onClick={() => dispatch(isCartPageOpen())}>Home</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text onClick={() => dispatch(isCartPageOpen(true))}>
+          <Navbar.Text onClick={() => dispatch(isCartPageOpen())}>
             <CartIcon />
             <Badge bg="secondary">{itemCounts}</Badge>
           </Navbar.Text>
