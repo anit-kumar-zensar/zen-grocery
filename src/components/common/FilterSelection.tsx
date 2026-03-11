@@ -6,16 +6,14 @@ import axios from "axios";
 import "./FilterSelection.css";
 
 const categories = [
-  "home-decoration",
+  "grains",
   "groceries",
-  "skincare",
-  "fragrances",
-  "laptops",
-  "smartphones",
-  "Fruits",
-  "Vegetables",
-  "Dairy",
-  "Snacks",
+  "beverages",
+  "essentials",
+  "fruits",
+  "vegetables",
+  "dairy",
+  "snacks",
 ];
 
 const FilterSideBar = () => {
@@ -99,7 +97,7 @@ const FilterSideBar = () => {
 
           {selectedCategories.map((cat) => (
             <span key={cat} className="tag">
-              {cat}
+              {cat.charAt(0).toUpperCase() + cat.substring(1).toLowerCase()}
               <span
                 className="remove-tag"
                 onClick={(e) => {
@@ -143,7 +141,7 @@ const FilterSideBar = () => {
             >
               ✓
             </span>
-            {cat}
+            {cat.charAt(0).toUpperCase() + cat.substring(1).toLowerCase()}
           </div>
         ))}
       </div>

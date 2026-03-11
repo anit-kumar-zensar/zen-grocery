@@ -38,7 +38,10 @@ const ProductsCard = ({ products, setShow }: ProductCardProp) => {
               <Card.Body className="zengrocery-body">
                 <Card.Title className="zengrocery-title">{name}</Card.Title>
 
-                <div className="zengrocery-category">{category}</div>
+                <div className="zengrocery-category">
+                  {category.charAt(0).toUpperCase() +
+                    category.substring(1).toLowerCase()}
+                </div>
 
                 <div className="zengrocery-rating">
                   ★★★★☆ <span className="rating-count">(124)</span>

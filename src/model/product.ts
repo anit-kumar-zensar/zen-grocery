@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 class Product{
-    _id:string = '';
+    _id?:string = '';
     name:string = '';
     price:number = 0;
     category:string ='';

@@ -8,16 +8,14 @@ import "./FilterSidebar.css";
 import { BASE_URL } from "../../constants/api";
 
 const categories = [
-  "home-decoration",
+  "grains",
   "groceries",
-  "skincare",
-  "fragrances",
-  "laptops",
-  "smartphones",
-  "Fruits",
-  "Vegetables",
-  "Dairy",
-  "Snacks",
+  "beverages",
+  "essentials",
+  "fruits",
+  "vegetables",
+  "dairy",
+  "snacks",
 ];
 
 const FilterSideBar = () => {
